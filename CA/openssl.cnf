@@ -1,0 +1,71 @@
+# *************************************************************************************
+# 
+# Config file for openssl
+#
+# ***** openssl.cnf ******
+
+dir           = .    # Workspace
+  
+# Default Zone for CA
+[ ca ]
+default_ca    = CA_default
+
+[ CA_default ]
+serial        = $dir/serial         	# In this file will save the next serial number for the Certificate
+database      = $dir/index.txt   	    # Index file with all Certs emited
+new_certs_dir = $dir/crt    			# Home for all certs generated
+certificate   = $dir/cacert.pem      	# CA File
+private_key   = $dir/private/cakey.pem 	# Private Key 
+default_md    = md5                  	# Algorithm
+preserve      = no                   	# Order in DN fields of cert
+nameopt       = default_ca           	# Show cert details  
+certopt       = default_ca           
+policy        = policy_match         	# This section will have all fields and if anyone is required
+
+# Section with all policies to create certs
+[ policy_match ]
+countryName                 = supplied       # match= must be the same than the CA
+stateOrProvinceName         = supplied        
+organizationName            = supplied 
+commonName                  = supplied       
+emailAddress                = supplied 
+
+# Section that say the kind of cert
+[ req ]
+default_bits       = 2048           			# Encryption bits
+default_keyfile    = cakey.pem      			# Keyfile Name
+default_md         = md5            			# Algorithm 
+string_mask        = nombstr        		 	# Chars allowed
+distinguished_name = req_distinguished_name  	# Section to introduce the DN information
+req_extensions     = v3_req         			
+input_password	   = genera2
+output_password	   = genera2
+
+# This fields are that you will see in prompt
+[ req_distinguished_name ]
+0.organizationName          = Organization Name
+emailAddress                = Email
+emailAddress_max            = 40
+localityName                = Locality
+stateOrProvinceName         = Estate or Province
+countryName                 = Country Code (2 Chars)
+countryName_min             = 2
+countryName_max             = 2
+commonName                  = Common Name
+commonName_max              = 64
+
+
+[ v3_ca ]
+# This field make possible that the CA can sign another certs
+basicConstraints       = CA:TRUE  
+                                 
+# How to identify the key created
+subjectKeyIdentifier   = hash     
+                                  
+# How to identify the Public Key
+authorityKeyIdentifier = keyid:always,issuer:always  
+                                        
+[ v3_req ]
+basicConstraints            = CA:FALSE  # The certs maked will not be CA
+subjectKeyIdentifier        = hash 
+# *************************************************************************************
