@@ -23,7 +23,7 @@ Now you must to create a CA Public and Private key:
 
 Well, now you have all the necessary to start.
 
-Now go to root folder, and edit the cert_details function with your preferences to generate the certs, change the value of "certs_to_make" bariable and type this:
+Now go to root folder, and edit the cert_details function with your preferences to generate the certs, change the value of "certs_to_make" variable and type this:
 
 ```
 bash Masive_cert_gen.sh
